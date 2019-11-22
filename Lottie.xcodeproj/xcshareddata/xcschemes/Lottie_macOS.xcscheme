@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0830"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FAE1F79C1E428CBE002E0974"
+               BlueprintIdentifier = "486E8566220A3605007CD915"
                BuildableName = "Lottie.framework"
                BlueprintName = "Lottie_macOS"
                ReferencedContainer = "container:Lottie.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FAE1F79C1E428CBE002E0974"
+            BlueprintIdentifier = "486E8566220A3605007CD915"
             BuildableName = "Lottie.framework"
             BlueprintName = "Lottie_macOS"
             ReferencedContainer = "container:Lottie.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FAE1F79C1E428CBE002E0974"
+            BlueprintIdentifier = "486E8566220A3605007CD915"
             BuildableName = "Lottie.framework"
             BlueprintName = "Lottie_macOS"
             ReferencedContainer = "container:Lottie.xcodeproj">
