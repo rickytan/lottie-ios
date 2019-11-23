@@ -14,12 +14,21 @@
 
 @class LOTValueCallback;
 
+@protocol LOTLayerContainerDelegate <NSObject>
+
+@required
+- (void)frameUpdated:(NSNumber *_Nullable)frame;
+
+@end
+
 @interface LOTLayerContainer : CALayer
+@property (nonatomic, weak, nullable) id<LOTLayerContainerDelegate> containerDelegate;
 
 - (instancetype _Nonnull)initWithModel:(LOTLayer * _Nullable)layer
                  inLayerGroup:(LOTLayerGroup * _Nullable)layerGroup;
 
 @property (nonatomic,  readonly, strong, nullable) NSString *layerName;
+@property (nonatomic, readonly) LOTMatteType matteType;
 @property (nonatomic, nullable) NSNumber *currentFrame;
 @property (nonatomic, readonly, nonnull) NSNumber *timeStretchFactor;
 @property (nonatomic, assign) CGRect viewportBounds;

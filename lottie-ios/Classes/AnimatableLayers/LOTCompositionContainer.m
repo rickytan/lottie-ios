@@ -23,6 +23,31 @@
   LOTNumberInterpolator *_timeInterpolator;
 }
 
+- (instancetype)initWithSceneModel:(LOTComposition *)model
+                    withLayerGroup:(LOTLayerGroup *)childLayerGroup
+                   withAssestGroup:(LOTAssetGroup *)assetGroup
+{
+    self = [super initWithModel:nil inLayerGroup:nil];
+    if (self) {
+        self.anchorPoint = CGPointMake(0.5, 0.5);
+        self.bounds = model.compBounds;
+        DEBUG_Center = [CALayer layer];
+        
+        DEBUG_Center.bounds = CGRectMake(0, 0, 20, 20);
+        DEBUG_Center.borderColor = [UIColor orangeColor].CGColor;
+        DEBUG_Center.borderWidth = 2;
+        DEBUG_Center.masksToBounds = YES;
+        if (ENABLE_DEBUG_SHAPES) {
+          [self.wrapperLayer addSublayer:DEBUG_Center];
+        }
+        
+        _frameOffset = @0;
+
+        [self initializeWithChildGroup:childLayerGroup withAssetGroup:assetGroup];
+    }
+    return self;
+}
+
 - (instancetype)initWithModel:(LOTLayer *)layer
                  inLayerGroup:(LOTLayerGroup *)layerGroup
                withLayerGroup:(LOTLayerGroup *)childLayerGroup
@@ -75,11 +100,12 @@
     } else {
       child = [[LOTLayerContainer alloc] initWithModel:layer inLayerGroup:childGroup];
     }
+    child.bounds = self.bounds;
     if (maskedLayer) {
       maskedLayer.mask = child;
       maskedLayer = nil;
     } else {
-      if (layer.matteType == LOTMatteTypeAdd) {
+      if (layer.matteType == LOTMatteTypeAdd || layer.matteType == LOTMatteTypeInvert) {
         maskedLayer = child;
       }
       [self.wrapperLayer addSublayer:child];

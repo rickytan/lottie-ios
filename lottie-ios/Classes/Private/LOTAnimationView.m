@@ -185,7 +185,7 @@ static NSString * const kCompContainerAnimationKey = @"play";
   }
   
   _sceneModel = model;
-  _compContainer = [[LOTCompositionContainer alloc] initWithModel:nil inLayerGroup:nil withLayerGroup:_sceneModel.layerGroup withAssestGroup:_sceneModel.assetGroup];
+  _compContainer = [[LOTCompositionContainer alloc] initWithSceneModel:model withLayerGroup:_sceneModel.layerGroup withAssestGroup:_sceneModel.assetGroup];
   [self.layer addSublayer:_compContainer];
   [self _restoreState];
   [self setNeedsLayout];

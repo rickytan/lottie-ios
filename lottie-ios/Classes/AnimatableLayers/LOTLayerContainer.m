@@ -46,7 +46,8 @@
     
     if (ENABLE_DEBUG_SHAPES) {
       [_wrapperLayer addSublayer:DEBUG_Center];
-    } 
+    }
+    self.anchorPoint = CGPointZero;
     self.actions = @{@"hidden" : [NSNull null], @"opacity" : [NSNull null], @"transform" : [NSNull null]};
     _wrapperLayer.actions = [self.actions copy];
     _timeStretchFactor = @1;
@@ -61,6 +62,7 @@
     return;
   }
   _layerName = layer.layerName;
+  _matteType = layer.matteType;
   if (layer.layerType == LOTLayerTypeImage ||
       layer.layerType == LOTLayerTypeSolid ||
       layer.layerType == LOTLayerTypePrecomp) {
@@ -236,6 +238,15 @@
   return self;
 }
 
+- (void)setMask:(__kindof CALayer *)mask
+{
+    if (_matteType == LOTMatteTypeInvert) {
+        super.mask = [[LOTInvertedMatteContainer alloc] initWithInputMatte:mask];
+    } else {
+        super.mask = mask;
+    }
+}
+
 - (void)display {
   @synchronized(self) {
     LOTLayerContainer *presentation = self;
@@ -271,6 +282,7 @@
   }
   [_contentsGroup updateWithFrame:newFrame withModifierBlock:nil forceLocalUpdate:forceUpdate];
   _maskLayer.currentFrame = newFrame;
+  [self.containerDelegate frameUpdated:frame];
 }
 
 - (void)setViewportBounds:(CGRect)viewportBounds {

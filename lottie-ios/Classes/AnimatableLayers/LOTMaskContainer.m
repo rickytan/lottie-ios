@@ -105,3 +105,38 @@
 }
 
 @end
+
+
+@implementation LOTInvertedMatteContainer
+{
+    LOTLayerContainer     * _inputMatte;
+}
+
+- (instancetype)initWithInputMatte:(LOTLayerContainer *)matte
+{
+    self = [super init];
+    if (self) {
+        _inputMatte = matte;
+        _inputMatte.containerDelegate = self;
+        self.anchorPoint = CGPointZero;
+        self.bounds = _inputMatte.bounds;
+        [self setNeedsDisplay];
+    }
+    return self;
+}
+
+- (void)drawInContext:(CGContextRef)ctx
+{
+    [[UIColor blackColor] setFill];
+    CGContextFillRect(ctx, self.bounds);
+    CGContextSetBlendMode(ctx, kCGBlendModeDestinationOut);
+    [_inputMatte renderInContext:ctx];
+}
+
+- (void)frameUpdated:(NSNumber *)frame
+{
+    [self setNeedsDisplay];
+    [self displayIfNeeded];
+}
+
+@end
